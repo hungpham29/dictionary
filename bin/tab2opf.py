@@ -138,7 +138,7 @@ def normalizeUnicode(text, encoding='humanascii'):
     else:
         return res.encode('utf-8')
 
-OPFTEMPLATEHEAD1 = """<?xml version="1.0"?><!DOCTYPE package SYSTEM "oeb1.ent">
+OPFTEMPLATEHEAD1 = """<?xml version="1.0" encoding="utf-8"?><!DOCTYPE package SYSTEM "oeb1.ent">
 
 <!-- the command line instruction 'prcgen dictionary.opf' will produce the dictionary.prc file in the same folder-->
 <!-- the command line instruction 'mobigen dictionary.opf' will produce the dictionary.mobi file in the same folder-->
@@ -150,14 +150,15 @@ OPFTEMPLATEHEAD1 = """<?xml version="1.0"?><!DOCTYPE package SYSTEM "oeb1.ent">
 		<dc:Identifier id="uid">%s</dc:Identifier>
 		<!-- Title of the document -->
 		<dc:Title><h2>%s</h2></dc:Title>
-		<dc:Language>EN</dc:Language>
+        <dc:Creator>jeptoong</dc:Creator>
+		<dc:Language>en-US</dc:Language>
 	</dc-metadata>
 	<x-metadata>
 """
 OPFTEMPLATEHEADNOUTF = """		<output encoding="Windows-1252" flatten-dynamic-dir="yes"/>"""
 OPFTEMPLATEHEAD2 = """
-		<DictionaryInLanguage>en-us</DictionaryInLanguage>
-		<DictionaryOutLanguage>en-us</DictionaryOutLanguage>
+		<DictionaryInLanguage>en-US</DictionaryInLanguage>
+		<DictionaryOutLanguage>vi-VN</DictionaryOutLanguage>
 	</x-metadata>
 </metadata>
 
@@ -210,6 +211,7 @@ else:
 
 fr = open(FILENAME,'rb')
 name = os.path.splitext(os.path.basename(FILENAME))[0]
+dicName = "English Vietnamese Dictionary"
 
 from sets import Set
 #from nltk.corpus import words
@@ -253,7 +255,6 @@ for r in fr.xreadlines():
       </mbp:slave-frame>
       <mbp:pagebreak/>
 """)
-
     dt, dd =  r.split('\t',1)
     if not UTFINDEX:
         dt = normalizeUnicode(dt,'cp1252')
@@ -303,9 +304,9 @@ fr.close()
 lineno = i - 1
 
 print("Removed %i" % removed)
-
+print(dicName)
 to = open("%s.opf" % name, 'w')
-to.write(OPFTEMPLATEHEAD1 % (name, name))
+to.write(OPFTEMPLATEHEAD1 % (name, dicName))
 if not UTFINDEX:
     to.write(OPFTEMPLATEHEADNOUTF)
 to.write(OPFTEMPLATEHEAD2)

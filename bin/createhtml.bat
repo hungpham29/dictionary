@@ -1,1 +1,1 @@
-python tab2opf.py -utf TudienAnhVietBeta.txt
+python tab2opf.py -utf English_Vietnamese_Dictionary.txt
