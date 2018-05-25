@@ -217,7 +217,7 @@ from pattern.en import pluralize
 
 # List of common English words
 #wordlist = Set(words.words())
-wordlist = Set(open("misc/354984si.ngl").read().split())
+wordlist = Set(open("../misc/354984si.ngl").read().split())
 
 i = 0
 to = False
